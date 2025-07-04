@@ -6,7 +6,12 @@ interface AdminRequest extends Request {
 }
 
 export function authenticateAdmin(req: AdminRequest, res: Response, next: NextFunction): void {
-  const token = req.cookies && req.cookies['admin_token'];
+  let token;
+  if(req.cookies && req.cookies['admin_token']){
+   token = req.cookies && req.cookies['admin_token'];
+  }else if(req.headers && req.headers.authorization){
+    token = req.headers.authorization.split(' ')[1]
+  }
   if (!token) {
     res.status(401).json({ message: 'No token provided' });
     return;
