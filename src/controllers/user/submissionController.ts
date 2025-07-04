@@ -6,6 +6,7 @@ import { applicationSubmisionTemplate } from '../../utils/emailTemplates';
 import { SubmissionStatus } from '../../utils/enums';
 
 export const createSubmission = async (req: Request, res: Response): Promise<void> => {
+  console.log("reached here")
   try {
     const { fullName, phoneNumber, email, dob, address, timestamp, aadhaar, photograph, signature } = req.body;
 
@@ -51,7 +52,7 @@ export const createSubmission = async (req: Request, res: Response): Promise<voi
 
     await sendMail(
       // process.env.ADMIN_EMAIL as string,
-      'samiksha@inlane.in',
+      process.env.LANE_EMAIL as string,
       `LEARNER'S APPLICATION`,
       htmlContent
     );

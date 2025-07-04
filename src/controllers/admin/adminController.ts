@@ -55,7 +55,7 @@ export const updateSubmissionStatus = async (req:Request,res:Response): Promise<
       }
       const htmlContent = statusUpdateTemplate(updated.fullName, status);
 
-      await sendMail('samiksha@inlane.in', EmailTemplateSubject.updation, htmlContent);
+      await sendMail(process.env.LANE_EMAIL as string, EmailTemplateSubject.updation, htmlContent);
   
       res.json({ message: 'Status updated successfully', submission: updated });
     } catch (err: unknown) {
