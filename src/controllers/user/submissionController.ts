@@ -19,9 +19,9 @@ export const createSubmission = async (req: Request, res: Response): Promise<voi
     }
 
     // Check if submission already exists (by email and dob)
-    const existingSubmission = await Submission.findOne({ email });
+    const existingSubmission = await Submission.findOne({ email,phoneNumber });
     if (existingSubmission) {
-      res.json({ existing: true, message: 'Submission already exists for this email and date of birth.' });
+      res.json({ existing: true, message: `Submission already exists for this email or phone number` });
       return;
     }
 
