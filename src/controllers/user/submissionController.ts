@@ -17,9 +17,10 @@ export const createSubmission = async (req: Request, res: Response): Promise<voi
       res.json({ ageLessthan18: true, message: 'Applicant must be at least 18 years old.' });
       return;
     }
-
+    console.log(phoneNumber,email)
     // Check if submission already exists (by email and dob)
-    const existingSubmission = await Submission.findOne({ email,phoneNumber });
+    const existingSubmission = await Submission.findOne({ $or: [ {email,phoneNumber} ] });
+    console.log("existing",existingSubmission)  
     if (existingSubmission) {
       res.json({ existing: true, message: `Submission already exists for this email or phone number` });
       return;
